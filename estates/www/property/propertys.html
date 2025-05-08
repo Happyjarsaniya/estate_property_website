@@ -1,0 +1,186 @@
+{% extends 'templates/estate_base.html' %}
+
+{% block title %}Property Details{% endblock %}
+
+{% block content %} 
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img class="d-block  vw-100 vh-100" src="/assets/estate_App/homes/img/pro_2.jpg" alt="First slide">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block  vw-100 vh-100" src="/assets/estate_App/homes/img/pro_1.jpg" alt="Second slide">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block vw-100 vh-100" src="/assets/estate_App/homes/img/pro_6.jpeg" alt="Third slide">
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+ <!-- Property List Start -->
+ <div class="container-xxl py-5 mt-5">
+    <div class="container">
+        <div class="row g-0 gx-5 align-items-end">
+            <div class="col-lg-6">
+                <div class="text-start mx-auto mb-5 wow slideInLeft" data-wow-delay="0.1s">
+                    <h1 class="mb-3">Property Listing</h1>
+                    <p>Eirmod sed ipsum dolor sit rebum labore magna erat. Tempor ut dolore lorem kasd vero ipsum sit eirmod sit diam justo sed rebum.</p>
+                </div>
+            </div>
+            <div class="col-lg-6 text-start text-lg-end wow slideInRight" data-wow-delay="0.1s">
+                <ul class="nav nav-pills d-inline-flex justify-content-end mb-5">
+                    <li class="nav-item me-2">
+                      <a class="btn btn-outline-primary {% if selected_status == 'All' or not selected_status %}active{% endif %}" href="?status=All">All</a>
+                    </li>
+                    <li class="nav-item me-2">
+                        <a class="btn btn-outline-primary {% if selected_status == 'Sale' %}active{% endif %}" href="?status=Sale">For Sale</a>
+                    </li>
+                    <li class="nav-item me-2">
+                        <a class="btn btn-outline-primary {% if selected_status == 'Rent' %}active{% endif %}" href="?status=Rent">For Rent</a>
+                    </li>
+                    <li class="nav-item me-2">
+                        <a class="btn btn-outline-primary {% if selected_status == 'Lease' %}active{% endif %}" href="?status=Lease">For Lease</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+<!-- Search End -->
+<form method="GET">
+    <div class="container-fluid bg-primary mb-5 wow fadeIn " data-wow-delay="0.1s" style="padding: 35px;">
+      <div class="container">
+          <div class="row g-2">
+              <div class="col-md">
+                  <div class="row g-2">
+                      <!-- Property Type Filter -->
+                      <div class="col-md-6">
+                          <select class="form-select border-0 py-3" name="type">
+                            <option value="">All Types</option>
+                            {% for type in property_types %}
+                              <option value="{{ type.name }}" {% if frappe.form_dict.get('type') == type.name %}selected{% endif %}>
+                                {{ type.name }}
+                              </option>
+                            {% endfor %}
+                          </select>
+                      </div>
+  
+                      <!-- City Filter -->
+                      <div class="col-md-6">
+                          <select class="form-select border-0 py-3" name="city">
+                            <option value="">All Cities</option>
+                            {% for city in cities %}
+                              <option value="{{ city.name }}" {% if frappe.form_dict.get('city') == city.name %}selected{% endif %}>
+                                {{ city.name }}
+                              </option>
+                            {% endfor %}
+                          </select>
+                      </div>
+                  </div>
+              </div>
+  
+              <!-- Submit Button -->
+              <div class="col-md-2">
+                <input type="submit" class="btn btn-dark border-0 w-100 py-3" value="Search">
+              </div>
+          </div>
+      </div>
+    </div>
+  </form>
+  <!-- search end -->
+  
+        <div class="tab-content">
+            <div id="tab-1" class="tab-pane fade show p-0 active">
+                <div class="row g-4">
+                  {% for property in properties %}
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="property-item rounded overflow-hidden">
+                            <div class="position-relative overflow-hidden">
+                                <a href="/property/detail/{{property.name}}">
+                                    <img class="img-fluid w-100" style="height: 250px; object-fit: cover;" 
+                                        src="{{property.image}}" alt="">
+                                </a>
+                                <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">
+                                    {{property.property_ownership}}
+                                </div>
+                                <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">
+                                    {{ property.property_type or "N/A" }}
+                                </div>
+                                <a href="/property/tower_details/{{property.name}}">
+                                <div class="bg-white rounded-top text-primary position-absolute end-0 bottom-0 mx-4 pt-1 px-3">
+                                  Tower
+                              </div></a>
+                            </div>
+                            <div class="p-4 pb-0">
+                                <a class="d-block h5 mb-2" href="/property/detail/{{property.name}}">
+                                    {{property.property_name}}
+                                </a>
+                                <p><i class="fa fa-map-marker-alt text-primary me-2"></i>{{property.address}}</p>
+                            </div>
+                            <div class="d-flex border-top">
+                                <small class="flex-fill text-center border-end py-2">
+                                    <i class="fa fa-ruler-combined text-primary me-2"></i> 
+                                    {{ property.average_carpet_area or "N/A" }} sq. ft.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                  {% endfor %}
+                    <!--  start page -->
+                        
+                    <!-- <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-md-12 text-center">
+                          <div class="site-pagination d-inline-flex gap-2">
+                            {% if prev %}
+                            <a href="/?page={{prev}}" class="btn btn-warning">⏪</a>
+                            {% endif %}
+                            {% if next %}
+                            <a href="/?page={{next}}" class="btn btn-primary">⏩</a>
+                            {% endif %}
+                          </div>
+                        </div>  
+                      </div>
+                    </div> -->
+                    <!--  end page -->
+
+
+                    <!-- <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s">
+                        <a class="btn btn-primary py-3 px-5" href="">Browse More Property</a>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Property List End -->
+<style>
+  .property-item {
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 0 10px rgba(0,0,0,0.08);
+  }
+
+  .property-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+
+  
+  .property-item img {
+    transition: transform 0.4s ease;
+  }
+
+  .property-item:hover img {
+    transform: scale(1.05);
+  }
+
+
+</style>
+
+{% endblock %}

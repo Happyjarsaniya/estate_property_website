@@ -1,0 +1,50 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-03-06 14:48:16.595099",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "floor_no",
+  "total_resident_unit",
+  "total_commercial_unit"
+ ],
+ "fields": [
+  {
+   "depends_on": "eval: doc.total_no_of_floor",
+   "fieldname": "floor_no",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Floor No.",
+   "read_only": 1
+  },
+  {
+   "depends_on": " eval:doc.tower_type == \"Residential\"",
+   "fetch_from": "property.property_type",
+   "fieldname": "total_resident_unit",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Total Resident Unit"
+  },
+  {
+   "depends_on": "eval:doc.tower_type == \"Commercial\"",
+   "fieldname": "total_commercial_unit",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Total Commercial Unit"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-03-28 11:23:37.132012",
+ "modified_by": "Administrator",
+ "module": "estates",
+ "name": "Floor Details",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

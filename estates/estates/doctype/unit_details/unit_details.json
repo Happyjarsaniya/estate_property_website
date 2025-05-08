@@ -1,0 +1,195 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{tower}-{unit_number}",
+ "creation": "2025-03-06 12:45:54.318214",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "property",
+  "property_type",
+  "tower",
+  "unit_number",
+  "floor__number",
+  "unit_category",
+  "unit_type",
+  "column_break_aeyh",
+  "unit_size",
+  "average_carpet_area",
+  "status",
+  "section_break_odsq",
+  "no_of_bedrooms",
+  "seating_capacity",
+  "column_break_ytum",
+  "no_of_bathrooms",
+  "cabin_count",
+  "column_break_sxfj",
+  "no_of_balconies",
+  "meeting_rooms"
+ ],
+ "fields": [
+  {
+   "depends_on": "eval:doc.property &&doc.property_type != \"Mixed Development\" || doc.unit_category",
+   "fieldname": "unit_type",
+   "fieldtype": "Link",
+   "label": "Unit Type",
+   "options": "Unit Type",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval:doc.tower",
+   "fieldname": "unit_number",
+   "fieldtype": "Data",
+   "label": "Unit Number",
+   "reqd": 1
+  },
+  {
+   "fieldname": "property",
+   "fieldtype": "Link",
+   "label": "Property",
+   "options": "Property",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval:doc.property",
+   "fieldname": "tower",
+   "fieldtype": "Link",
+   "label": "Tower",
+   "options": "Tower Sector Detail",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval:doc.unit_number",
+   "fieldname": "floor__number",
+   "fieldtype": "Int",
+   "label": "Floor  Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "unit_size",
+   "fieldtype": "Float",
+   "label": "Unit Size",
+   "reqd": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Available\nOn Hold\nUnder Maintenance\nBooked",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_aeyh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_odsq",
+   "fieldtype": "Section Break"
+  },
+  {
+   "depends_on": "eval:doc.unit_category == \"Residential\" || doc.property_type == \"Residential\"\n\n",
+   "fieldname": "no_of_bedrooms",
+   "fieldtype": "Int",
+   "label": "No. of Bedrooms",
+   "mandatory_depends_on": "eval: doc.unit_type==\"2BHK\" || doc.unit_type==\"3BHK\" || doc.unit_type==\"4BHK\"\r\n"
+  },
+  {
+   "depends_on": "eval:doc.unit_category == \"Commercial\" || doc.property_type == \"Commercial\"",
+   "fieldname": "seating_capacity",
+   "fieldtype": "Int",
+   "label": "Seating Capacity",
+   "mandatory_depends_on": "eval: doc.unit_type == \"Office\""
+  },
+  {
+   "fieldname": "column_break_ytum",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.unit_category == \"Residential\" || doc.property_type == \"Residential\"",
+   "fieldname": "no_of_bathrooms",
+   "fieldtype": "Int",
+   "label": "No. of Bathrooms",
+   "mandatory_depends_on": "eval: doc.unit_type==\"2BHK\" || doc.unit_type==\"3BHK\" || doc.unit_type==\"4BHK\"\r\n"
+  },
+  {
+   "depends_on": "eval:doc.unit_category == \"Commercial\" || doc.property_type == \"Commercial\"",
+   "fieldname": "cabin_count",
+   "fieldtype": "Int",
+   "label": "Cabin Count",
+   "mandatory_depends_on": "eval: doc.unit_type == \"Office\""
+  },
+  {
+   "fieldname": "column_break_sxfj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.unit_category == \"Residential\" || doc.property_type == \"Residential\"",
+   "fieldname": "no_of_balconies",
+   "fieldtype": "Int",
+   "label": "No. of Balconies",
+   "mandatory_depends_on": "eval: doc.unit_type==\"2BHK\" || doc.unit_type==\"3BHK\" || doc.unit_type==\"4BHK\"\r\n"
+  },
+  {
+   "depends_on": "eval:doc.unit_category == \"Commercial\" || doc.property_type == \"Commercial\"",
+   "fieldname": "meeting_rooms",
+   "fieldtype": "Int",
+   "label": "Meeting Rooms",
+   "mandatory_depends_on": "eval: doc.unit_type == \"Office\""
+  },
+  {
+   "depends_on": "eval:doc.unit_size",
+   "fieldname": "average_carpet_area",
+   "fieldtype": "Float",
+   "label": "Average Carpet Area",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.property",
+   "fetch_from": "property.property_type",
+   "fetch_if_empty": 1,
+   "fieldname": "property_type",
+   "fieldtype": "Data",
+   "label": "Property Type",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.property_type == \"Mixed Use\"",
+   "fieldname": "unit_category",
+   "fieldtype": "Select",
+   "label": " Unit Category",
+   "options": "\nResidential\nCommercial"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [
+  {
+   "link_doctype": "Unit Allocation",
+   "link_fieldname": "property"
+  }
+ ],
+ "modified": "2025-04-21 10:46:16.613094",
+ "modified_by": "Administrator",
+ "module": "estates",
+ "name": "Unit Details",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

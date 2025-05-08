@@ -1,0 +1,516 @@
+{% extends 'templates/estate_base.html' %}
+
+{% block title %}Home {% endblock %}
+
+{% block content %}
+
+
+
+<!-- Header Start -->
+<div class="container-fluid header bg-white  mt-5">
+  <div class="row align-items-center flex-column-reverse flex-md-row">
+      
+      <!-- Left Side: Text Content -->
+      <div class="col-md-6 p-5 mt-lg-5 text-center text-md-start">
+          <h1 class="display-5 mb-4">
+              Find A <span class="text-primary">Perfect Home</span> To Live With Your Family
+          </h1>
+          <p class="mb-4 pb-2">
+              Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr.
+          </p>
+          <a href="#xyz" class="btn btn-primary py-3 px-5 me-3">Get Started</a>
+      </div>
+
+      <!-- Right Side: Bootstrap Carousel -->
+      <div class="col-md-6">
+          <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+              <div class="carousel-indicators">
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></button>
+              </div>
+              <div class="carousel-inner">
+                  <div class="carousel-item active">
+                      <img src="/assets/estate_App/homes/img/carousel-1.jpg" class="d-block w-100" alt="Image 1">
+                  </div>
+                  <div class="carousel-item">
+                      <img src="/assets/estate_App/homes/img/carousel-2.jpg" class="d-block w-100" alt="Image 2">
+                  </div>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon"></span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                  <span class="carousel-control-next-icon"></span>
+              </button>
+          </div>
+      </div>
+
+  </div>
+</div>
+<!-- Header End -->
+
+
+<!-- Search Start -->
+<!-- <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
+  <div class="container">
+      <div class="row g-2">
+          <div class="col-md-10">
+              <div class="row g-2">
+                <div class="col-md-4">
+                  <select class="form-select border-0 py-3">
+                    {% for type in property_types %}
+                      <option value="{{ type.name }}">{{ type.name }}</option>
+                    {% endfor %}
+
+                  </select>
+                </div>
+
+                  <div class="col-md-4">
+                      <select class="form-select border-0 py-3">
+                        <option value="Sale">For Sale</option>
+                        <option value="Rent">For Rent</option>
+                        <option value="Lease">For Lease</option>
+                      </select>
+                  </div>
+                  <div class="col-md-4">
+                      <select class="form-select border-0 py-3">
+                        {% for city in cities %}
+                          <option value="">{{city.name}}</option>
+                        {% endfor %}
+                      </select>
+                  </div>
+              </div>
+          </div>
+
+
+          <div class="col-md-2">
+            <input type="submit" class="btn btn-dark border-0 w-100 py-3" value="Search">
+          
+          </div>
+      </div>
+  </div>
+</div> -->
+<!-- Search End -->
+<form method="GET">
+  <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
+    <div class="container">
+        <div class="row g-2">
+            <div class="col-md">
+                <div class="row g-2">
+                    <!-- Property Type Filter -->
+                    <div class="col-md-6">
+                        <select class="form-select border-0 py-3" name="type">
+                          <option value="">All Types</option>
+                          {% for type in property_types %}
+                            <option value="{{ type.name }}" {% if frappe.form_dict.get('type') == type.name %}selected{% endif %}>
+                              {{ type.name }}
+                            </option>
+                          {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- City Filter -->
+                    <div class="col-md-6">
+                        <select class="form-select border-0 py-3" name="city">
+                          <option value="">All Cities</option>
+                          {% for city in cities %}
+                            <option value="{{ city.name }}" {% if frappe.form_dict.get('city') == city.name %}selected{% endif %}>
+                              {{ city.name }}
+                            </option>
+                          {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="col-md-2">
+              <input type="submit" class="btn btn-dark border-0 w-100 py-3" value="Search">
+            </div>
+        </div>
+    </div>
+  </div>
+</form>
+<!-- search end -->
+
+
+<!-- All search rent sale lease -->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="view-options bg-white py-3 px-3 d-md-flex align-items-center justify-content-between flex-wrap">
+        <!-- View Options -->
+        <div class="d-flex">
+          <a href="index.html" class="icon-view view-module active me-2"><span class="icon-view_module"></span></a>
+          <a href="view-list.html" class="icon-view view-list"><span class="icon-view_list"></span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End All search rent sale lease -->
+
+
+        <!-- Property List Start -->
+        <div class="container-xxl py-5">
+          <div class="container">
+              <div class="row g-0 gx-5 align-items-end">
+                  <div class="col-lg-6">
+                      <div class="text-start mx-auto mb-5 wow slideInLeft" data-wow-delay="0.1s">
+                          <h1 class="mb-3">Property Listing</h1>
+                          <p>Eirmod sed ipsum dolor sit rebum labore magna erat. Tempor ut dolore lorem kasd vero ipsum sit eirmod sit diam justo sed rebum.</p>
+                      </div>
+                  </div>
+                  <div class="col-lg-6 text-start text-lg-end wow slideInRight" data-wow-delay="0.1s">
+
+                      <ul class="nav nav-pills d-inline-flex justify-content-end mb-5">
+                        <li class="nav-item me-2">
+                          <a class="btn btn-outline-primary {% if selected_status == 'All' or not selected_status %}active{% endif %}" href="?status=All">All</a>
+                        </li>
+                        <li class="nav-item me-2">
+                            <a class="btn btn-outline-primary {% if selected_status == 'Sale' %}active{% endif %}" href="?status=Sale">For Sale</a>
+                        </li>
+                        <li class="nav-item me-2">
+                            <a class="btn btn-outline-primary {% if selected_status == 'Rent' %}active{% endif %}" href="?status=Rent">For Rent</a>
+                        </li>
+                        <li class="nav-item me-2">
+                            <a class="btn btn-outline-primary {% if selected_status == 'Lease' %}active{% endif %}" href="?status=Lease">For Lease</a>
+                        </li>
+                        
+                    </ul>
+                    
+    
+                  </div>
+              </div>
+              <div class="tab-content">
+                  <div id="tab-1" class="tab-pane fade show p-0 active">
+                    <h1>Download Project Brochure</h1>
+                        <div class="w-75 mb-3">
+                          <a href="/files/my_resume.pdf" class="btn btn-primary w-25" download="my_resume.pdf">
+                            Download Brochure
+                          </a>
+                          
+                        </div>
+                      <div class="row g-4">
+                        
+                        {% for property in properties %}
+                          <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                              <div class="property-item rounded overflow-hidden">
+                                  <div class="position-relative overflow-hidden">
+                                      <a href="/property/detail/{{property.name}}">
+                                          <img class="img-fluid w-100" style="height: 250px; object-fit: cover;" 
+                                              src="{{property.image}}" alt="">
+                                      </a>
+                                      <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">
+                                          {{property.property_ownership}}
+                                      </div>
+                                      <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">
+                                          {{ property.property_type or "N/A" }}
+                                      </div>
+                                  </div>
+                                  <div class="p-4 pb-0">
+                                      <h5 class="text-primary mb-3">
+                                          <!-- {{ frappe.format_value(property.property_price, 'Currency') }} -->
+                                      </h5>
+                                      <a class="d-block h5 mb-2" href="/property/detail/{{property.name}}">
+                                          {{property.property_name}}
+                                      </a>
+                                      <p><i class="fa fa-map-marker-alt text-primary me-2"></i>{{property.address}}</p>
+                                  </div>
+                                  <div class="d-flex border-top">
+                                      <small class="flex-fill text-center border-end py-2">
+                                          <i class="fa fa-ruler-combined text-primary me-2"></i> 
+                                          {{ property.average_carpet_area or "N/A" }} sq. ft.
+                                      </small>
+                                  </div>
+                              </div>
+                          </div>
+                        {% endfor %}
+                          <!--  start page -->
+                              
+                          <!-- <div class="container-fluid">
+                            <div class="row">
+                              <div class="col-md-12 text-center">
+                                <div class="site-pagination d-inline-flex gap-2">
+                                  {% if prev %}
+                                  <a href="/?page={{prev}}" class="btn btn-warning">⏪</a>
+                                  {% endif %}
+                                  {% if next %}
+                                  <a href="/?page={{next}}" class="btn btn-primary">⏩</a>
+                                  {% endif %}
+                                </div>
+                              </div>  
+                            </div>
+                          </div> -->
+                          <!--  end page -->
+    
+
+                          <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s">
+                              <a class="btn btn-primary py-3 px-5" href="/property/propertys/">Browse More Property</a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- Property List End -->
+
+
+
+
+ 
+
+<!-- <div class="site-section site-section-sm bg-light">
+  <div class="container">
+  
+    <div class="row mb-5">
+      {% for property in properties %}
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="property-entry h-100">
+          <a href="/property/detail/{{property.name}}" class="property-thumbnail">
+            <div class="offer-type-wrap">
+              <span class="offer-type bg-{% if property.status=='Rent' %}success{% elif property.status=='Sales'%}danger{% else %}warning{% endif %}">{{property.status}}</span>
+            </div>
+            <img src="{{property.image}}" alt="Image" class="img-fluid">
+          </a>
+          <div class="p-4 property-body">
+            <a href="#" class="property-favorite"><span class="icon-heart-o"></span></a>
+            <h2 class="property-title"><a href="/property/detail/{{property.name}}">{{property.property_name}}</a></h2>
+            <span class="property-location d-block mb-3"><span class="property-icon icon-room"></span>{{property.address}}</span>
+            <strong class="property-price text-primary mb-3 d-block text-success">{{frappe.format(property.grand_total,{'fieldtype':'Currency'}) }}</strong>
+            <ul class="property-specs-wrap mb-3 mb-lg-0">
+              <li>
+                <span class="property-specs">SQ FT</span>
+                <span class="property-specs-number">{{property.average_carpet_area}}</span>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      
+
+
+    </div> -->
+    
+    
+  <!-- </div>
+</div> -->
+
+<div class="site-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-7 text-center">
+        <div class="site-section-title">
+          <h2>Why Choose Us?</h2>
+        </div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis maiores quisquam saepe architecto error corporis aliquam. Cum ipsam a consectetur aut sunt sint animi, pariatur corporis, eaque, deleniti cupiditate officia.</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-lg-4">
+        <a href="#" class="service text-center">
+          <span class="icon flaticon-house"></span>
+          <h2 class="service-heading">Research Subburbs</h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt iure qui natus perspiciatis ex odio molestia.</p>
+          <p><span class="read-more">Read More</span></p>
+        </a>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <a href="#" class="service text-center">
+          <span class="icon flaticon-sold"></span>
+          <h2 class="service-heading">Sold Houses</h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt iure qui natus perspiciatis ex odio molestia.</p>
+          <p><span class="read-more">Read More</span></p>
+        </a>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <a href="#" class="service text-center">
+          <span class="icon flaticon-camera"></span>
+          <h2 class="service-heading">Security Priority</h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt iure qui natus perspiciatis ex odio molestia.</p>
+          <p><span class="read-more">Read More</span></p>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+ <div class="site-section bg-light" id="xyz">
+  <div class="container">
+    <div class="row justify-content-center mb-5">
+      <div class="col-md-7 text-center">
+        <div class="site-section-title">
+          <h2>Recent Blog</h2>
+        </div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis maiores quisquam saepe architecto error corporis aliquam. Cum ipsam a consectetur aut sunt sint animi, pariatur corporis, eaque, deleniti cupiditate officia.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up" data-aos-delay="100">
+        <a href="#"><img src="/assets/estate_App/homeland/images/mix5.jpg" alt="Image" class="img-fluid"></a>
+        <div class="p-4 bg-white">
+          <span class="d-block text-secondary small text-uppercase">Jan 20th, 2022</span>
+          <h2 class="h5 text-black mb-3"><a href="#">Morning Glory</a></h2>
+          <p>A stunning penthouse featuring a large terrace, panoramic city view, and stylish interiors. Located in a high-rise building with clubhouse, gym, and rooftop pool. Perfect for urban living.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up" data-aos-delay="200">
+        <a href="#"><img src="/assets/estate_App/homeland/images/mix8.jpg"  alt="Image" class="img-fluid"></a>
+        <div class="p-4 bg-white">
+          <span class="d-block text-secondary small text-uppercase">Jan 20th, 2020</span>
+          <h2 class="h5 text-black mb-3"><a href="#">Hilltop Haven</a></h2>
+          <p>A prime location retail shop in a commercial complex, perfect for boutiques, restaurants. Equipped with glass frontage, ample parking, and high visibility.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up" data-aos-delay="300">
+        <a href="#"><img src="/assets/estate_App/homeland/images/re6.jpg"  alt="Image" class="img-fluid"></a>
+        <div class="p-4 bg-white">
+          <span class="d-block text-secondary small text-uppercase">Jan 20th, 2021</span>
+          <h2 class="h5 text-black mb-3"><a href="#">Stonehaven</a></h2>
+          <p>A state-of-the-art commercial complex offering offices, co-working spaces, and retail outlets in a single building. Perfect for startups, retail brands.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div> 
+
+<!-- Team Start -->
+
+  <div class="site-section">
+    <div class="container">
+      <div class="row mb-5 justify-content-center">
+        <div class="col-md-7">
+          <div class="site-section-title text-center">
+            <h2>Our Agents</h2>
+            <p>"As a dedicated real estate agent, I have successfully closed multiple property deals across prime locations. My goal is to help clients find the best properties that match their needs and budget."</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        {% for agent in agents %}
+          <div class="col-md col-lg-3 mb-5 align-items-center">
+            <div class="team-member card shadow-lg border-0 p-3">
+    
+              <img src="{{agent.image}}" alt="Image" class="img-fluid rounded mb-4">
+    
+              <div class="text text-center">
+                <h2 class="mb-2 font-weight-light text-black h4">{{agent.agent_name}}</h2>
+                <span class="d-block mb-2 text-muted">{{agent.email}}</span>
+                <span class="d-block mb-3 text-muted">{{agent.phone}}</span>
+                <p>
+                  <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                  <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
+                  <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
+                </p>
+              </div>
+    
+            </div>
+          </div>
+        {% endfor %}
+    </div> 
+  </div>
+
+<!-- Team End -->
+
+<div class="container py-5">
+    <!-- Section Title -->
+    <h2 class="text-center fw-bold mb-3">Happy Customers</h2>
+    <p class="text-center text-muted mb-5">
+        Quisque eget nisl id nulla sagittis auctor quis id. Aliquam quis vehicula enim, non aliquam risus.  
+        Sed a tellus quis mi rhoncus dignissim.
+    </p>
+
+    <!-- Testimonials Row -->
+    <div class="row g-4">
+        <!-- Testimonial 1 -->
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm p-4 text-center">
+                <blockquote class="blockquote">
+                    <p class="fw-bold">❝ Wonderful Support! ❞</p>
+                    <p class="text-muted small">
+                        They have got my project on time with the competition with a highly skilled, 
+                        experienced & professional team.
+                    </p>
+                </blockquote>
+                <div class="d-flex align-items-center justify-content-center mt-3">
+                    <img src="/assets/estate_App/homes/img/testi_01.png" class="rounded-circle me-2" alt="Client">
+                    <div class="text-start">
+                        <h6 class="mb-0 fw-bold">James Fernando</h6>
+                        <small class="text-muted">- Manager of Racer</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm p-4 text-center">
+                <blockquote class="blockquote">
+                    <p class="fw-bold">❝ Awesome Services! ❞</p>
+                    <p class="text-muted small">
+                        Explain to you how all this mistaken idea of denouncing pleasure and praising pain was born.
+                    </p>
+                </blockquote>
+                <div class="d-flex align-items-center justify-content-center mt-3">
+                    <img src="/assets/estate_App/homes/img/testi_02.png" class="rounded-circle me-2" alt="Client">
+                    <div class="text-start">
+                        <h6 class="mb-0 fw-bold">Jacques Philips</h6>
+                        <small class="text-muted">- Designer</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm p-4 text-center">
+                <blockquote class="blockquote">
+                    <p class="fw-bold">❝ Great & Talented Team! ❞</p>
+                    <p class="text-muted small">
+                        The master-builder of human happiness no one rejects, dislikes or avoids pleasure itself.
+                    </p>
+                </blockquote>
+                <div class="d-flex align-items-center justify-content-center mt-3">
+                    <img src="/assets/estate_App/homes/img/testi_03.png" class="rounded-circle me-2" alt="Client">
+                    <div class="text-start">
+                        <h6 class="mb-0 fw-bold">Venanda Mercy</h6>
+                        <small class="text-muted">- New York City</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+  .property-item {
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 0 10px rgba(0,0,0,0.08);
+  }
+
+  .property-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+
+  
+  .property-item img {
+    transition: transform 0.4s ease;
+  }
+
+  .property-item:hover img {
+    transform: scale(1.05);
+  }
+
+
+</style>
+
+
+{%endblock%}
+
+

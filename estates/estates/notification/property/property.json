@@ -1,0 +1,38 @@
+{
+ "attach_print": 0,
+ "channel": "Email",
+ "creation": "2025-03-07 12:08:53.143287",
+ "days_in_advance": 0,
+ "docstatus": 0,
+ "doctype": "Notification",
+ "document_type": "Property",
+ "enabled": 1,
+ "event": "Value Change",
+ "idx": 0,
+ "is_standard": 1,
+ "message": "<p>your work flow {{doc.workflow_state}}</p>\n",
+ "message_type": "Markdown",
+ "modified": "2025-03-07 12:39:38.436016",
+ "modified_by": "Administrator",
+ "module": "estates",
+ "name": "Property",
+ "owner": "Administrator",
+ "recipients": [
+  {
+   "condition": "doc.workflow_state == 'Draft'",
+   "receiver_by_role": "Property User"
+  },
+  {
+   "condition": "doc.workflow_state == 'Pending Approval'",
+   "receiver_by_role": "Property Manager"
+  },
+  {
+   "condition": "doc.workflow_state == 'Pending CEO Approval'",
+   "receiver_by_role": "Property CEO"
+  }
+ ],
+ "send_system_notification": 0,
+ "send_to_all_assignees": 0,
+ "subject": "Property Workflow: {{ doc.name }} {{ doc.workflow_state }}",
+ "value_changed": "workflow_state"
+}

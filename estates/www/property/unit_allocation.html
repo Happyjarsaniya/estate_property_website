@@ -1,0 +1,56 @@
+{% extends 'templates/estate_base.html' %}
+
+{% block title %}Unit Allocation{% endblock %}
+
+{% block content %}
+    <div class="container mt-5 pt-5">
+
+        {% if error %}
+            <div class="alert alert-danger mt-5">{{ message }}</div>
+        {% else %}
+            <h2 class="mb-4 mt-5">Property Allocation Details</h2>
+            <table class="table table-bordered">
+                <tr><th>Property</th><td>{{ property }}</td></tr>
+                <tr><th>Owner</th><td>{{ owner }}</td></tr>
+                <tr><th>Tower</th><td>{{ tower }}</td></tr>
+                <tr><th>Unit Number</th><td>{{ unit_number }}</td></tr>
+                <tr><th>Sold Price</th><td>{{ sold_price }}</td></tr>
+                <tr><th>Allocation Type</th><td>{{ allocation_type }}</td></tr>
+                <tr><th>Party</th><td>{{ party }}</td></tr>
+                <tr><th>Reference Date</th><td>{{ reference_date }}</td></tr>
+                <tr><th>Payment Status</th><td>{{ payment_status }}</td></tr>
+                <tr><th>Total Amount</th><td>{{ total_amount }}</td></tr>
+            </table>
+
+            <h3 class="mt-5">Payment Schedule Details</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Stage</th>
+                        <th>Payment</th>
+                        <th>Amount</th>
+                        <th>GST</th>
+                        <th>GST Amount</th>
+                        <th>Total Amount</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in payment_schedule_details %}
+                    <tr>
+                        <td>{{ item.no }}</td>
+                        <td>{{ item.stage }}</td>
+                        <td>{{ item.percentage }}%</td>
+                        <td>{{ item.amount}}</td>
+                        <td>{{ item.gst }}%</td>
+                        <td>{{ item.gst_amount }}</td>
+                        <td>{{ item.total_amount }}</td>
+                        <td>{{ item.status }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+{% endblock %}

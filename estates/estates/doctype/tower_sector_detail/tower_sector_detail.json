@@ -1,0 +1,165 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{property_name}-{tower_name}",
+ "creation": "2025-03-06 14:34:37.143614",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "type",
+  "tower_name",
+  "property_name",
+  "column_break_pexf",
+  "property_type",
+  "total_no_of_floor",
+  "type_of_details_section",
+  "total_no_of_residential_units",
+  "total_no_of_commercial_units",
+  "total_no_of_mixed_use_units",
+  "column_break_qzyd",
+  "total_num_of_towersector",
+  "total_units",
+  "section_break_jxef",
+  "floor_details",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "label": "Type",
+   "options": "\nSector\nTower",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval: doc.type== \"Tower\"",
+   "fieldname": "tower_name",
+   "fieldtype": "Data",
+   "label": "Tower Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_pexf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval: doc.type== \"Tower\"",
+   "fieldname": "property_name",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Property Name",
+   "options": "Property",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval: doc.type== \"Tower\"",
+   "fieldname": "total_no_of_floor",
+   "fieldtype": "Data",
+   "label": "Total No. of Floor",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval: doc.total_no_of_floor",
+   "fieldname": "floor_details",
+   "fieldtype": "Table",
+   "label": "Floor Details",
+   "options": "Floor Details"
+  },
+  {
+   "fieldname": "section_break_jxef",
+   "fieldtype": "Section Break"
+  },
+  {
+   "depends_on": "eval: (doc.property_type === \"Residential\" || doc.property_type === \"Mixed Use\")\r\n",
+   "fieldname": "total_no_of_residential_units",
+   "fieldtype": "Int",
+   "label": "Total No. of Residential Units"
+  },
+  {
+   "depends_on": "eval: (doc.property_type === \"Commercial\" || doc.property_type === \"Mixed Use\")\r\n",
+   "fieldname": "total_no_of_commercial_units",
+   "fieldtype": "Int",
+   "label": "Total No. of Commercial Units"
+  },
+  {
+   "fieldname": "type_of_details_section",
+   "fieldtype": "Section Break",
+   "label": "Type of Details"
+  },
+  {
+   "fieldname": "column_break_qzyd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Tower Sector Detail",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "depends_on": "eval:doc.type",
+   "fetch_from": "property_name.total_num_of_towersector",
+   "fieldname": "total_num_of_towersector",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": " Total Num of tower/sector"
+  },
+  {
+   "depends_on": "eval:doc.tower_type == \"Mixed-use\"",
+   "fieldname": "total_no_of_mixed_use_units",
+   "fieldtype": "Int",
+   "label": "Total No. of Mixed Use Units"
+  },
+  {
+   "fieldname": "total_units",
+   "fieldtype": "Data",
+   "label": "Total Units",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval: doc.type== \"Tower\"",
+   "fetch_from": "property_name.property_type",
+   "fetch_if_empty": 1,
+   "fieldname": "property_type",
+   "fieldtype": "Data",
+   "label": "Property Type",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [
+  {
+   "link_doctype": "Unit Details",
+   "link_fieldname": "property"
+  }
+ ],
+ "modified": "2025-03-28 11:57:40.441327",
+ "modified_by": "Administrator",
+ "module": "estates",
+ "name": "Tower Sector Detail",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "property_name"
+}

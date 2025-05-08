@@ -1,0 +1,37 @@
+{
+ "add_total_row": 0,
+ "columns": [],
+ "creation": "2025-04-17 12:06:43.497752",
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [
+  {
+   "fieldname": "Unit Type",
+   "fieldtype": "Data",
+   "label": "Unit Type",
+   "mandatory": 0,
+   "wildcard_filter": 0
+  }
+ ],
+ "idx": 0,
+ "is_standard": "Yes",
+ "json": "{}",
+ "letter_head": "Real",
+ "letterhead": null,
+ "modified": "2025-04-17 12:08:03.290992",
+ "modified_by": "Administrator",
+ "module": "estates",
+ "name": "Unit Details",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "ref_doctype": "Unit Details",
+ "report_name": "Unit Details",
+ "report_type": "Report Builder",
+ "roles": [
+  {
+   "role": "System Manager"
+  }
+ ],
+ "timeout": 0
+}

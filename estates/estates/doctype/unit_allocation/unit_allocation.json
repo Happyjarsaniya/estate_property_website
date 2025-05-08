@@ -1,0 +1,229 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{unit_number}-{party}",
+ "creation": "2025-03-10 14:48:27.861619",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "property",
+  "owner1",
+  "tower",
+  "unit_number",
+  "sold_price",
+  "column_break_pvri",
+  "allocation_type",
+  "party",
+  "reference_date",
+  "payment_status",
+  "section_break_xmey",
+  "agreement_start_date",
+  "lease_duration",
+  "security_deposit",
+  "column_break_jibe",
+  "agreement_enddate",
+  "lease_start_date",
+  "duration_months",
+  "column_break_hscl",
+  "monthly_rent_price",
+  "lease_end_date",
+  "total_amount",
+  "section_break_wuae",
+  "payment_schedule_details",
+  "rent_schedule",
+  "lease_schedule",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "property",
+   "fieldtype": "Link",
+   "label": "Property",
+   "options": "Property"
+  },
+  {
+   "depends_on": "eval:doc.property",
+   "fieldname": "tower",
+   "fieldtype": "Link",
+   "label": "Tower",
+   "options": "Tower Sector Detail"
+  },
+  {
+   "depends_on": "eval:doc.property",
+   "fieldname": "unit_number",
+   "fieldtype": "Link",
+   "label": "Unit Number",
+   "options": "Unit Details"
+  },
+  {
+   "depends_on": "eval:doc.unit_number",
+   "fetch_from": "unit_number.status",
+   "fetch_if_empty": 1,
+   "fieldname": "allocation_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Allocation Type",
+   "options": "\nSale\nRent\nLease"
+  },
+  {
+   "depends_on": "eval:doc.allocation_type==\"Rent\"",
+   "fieldname": "agreement_start_date",
+   "fieldtype": "Date",
+   "label": "Agreement Start Date"
+  },
+  {
+   "depends_on": "eval:doc.allocation_type==\"Rent\" ",
+   "fieldname": "agreement_enddate",
+   "fieldtype": "Date",
+   "label": "Agreement EndDate"
+  },
+  {
+   "depends_on": "eval:doc.allocation_type==\"Rent\" ||doc.allocation_type==\"Lease\"",
+   "fieldname": "monthly_rent_price",
+   "fieldtype": "Currency",
+   "label": "Monthly Rent Price"
+  },
+  {
+   "fieldname": "column_break_pvri",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.property",
+   "fetch_from": "property.owner1",
+   "fieldname": "owner1",
+   "fieldtype": "Link",
+   "label": "Owner",
+   "options": "Owner Details"
+  },
+  {
+   "fieldname": "section_break_xmey",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_jibe",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_hscl",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_wuae",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Unit Allocation",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "depends_on": "eval: doc.allocation_type==\"Sale\" ||doc.allocation_type==\"Rent\" ||doc.allocation_type==\"Lease\"  ",
+   "fetch_from": "amended_from.total_amount",
+   "fieldname": "total_amount",
+   "fieldtype": "Currency",
+   "label": "Total Amount",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.property",
+   "fieldname": "reference_date",
+   "fieldtype": "Date",
+   "label": "Reference Date"
+  },
+  {
+   "fieldname": "payment_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Payment Status",
+   "options": "UnPaid\nPartially Paid\nPaid"
+  },
+  {
+   "depends_on": "eval:doc.allocation_type",
+   "fieldname": "party",
+   "fieldtype": "Link",
+   "label": "Party",
+   "mandatory_depends_on": "eval:doc.allocation_type==\"Sale\"",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "payment_schedule_details",
+   "fieldtype": "Table",
+   "label": "Payment Schedule Details",
+   "options": "Payment Schedule Details"
+  },
+  {
+   "depends_on": "eval:doc.allocation_type ==\"Sale\"",
+   "fieldname": "sold_price",
+   "fieldtype": "Currency",
+   "label": "Sold Price"
+  },
+  {
+   "depends_on": "eval:doc.allocation_type==\"Rent\" || doc.allocation_type==\"Lease\" ",
+   "fieldname": "security_deposit",
+   "fieldtype": "Currency",
+   "label": "Security Deposit"
+  },
+  {
+   "depends_on": "eval:doc.allocation_type==\"Rent\" ",
+   "fieldname": "duration_months",
+   "fieldtype": "Int",
+   "label": "Duration (Months)"
+  },
+  {
+   "depends_on": "eval:doc.allocation_type==\"Rent\"",
+   "fieldname": "rent_schedule",
+   "fieldtype": "Table",
+   "label": "Rent Schedule",
+   "options": "Rent Schedule"
+  },
+  {
+   "depends_on": "eval:doc.allocation_type==\"Lease\" ",
+   "fieldname": "lease_start_date",
+   "fieldtype": "Date",
+   "label": "Lease Start Date"
+  },
+  {
+   "depends_on": "eval:doc.allocation_type==\"Lease\" ",
+   "fieldname": "lease_end_date",
+   "fieldtype": "Date",
+   "label": "Lease End Date"
+  },
+  {
+   "depends_on": "eval:doc.allocation_type==\"Lease\" ",
+   "fieldname": "lease_duration",
+   "fieldtype": "Int",
+   "label": "Lease Duration"
+  },
+  {
+   "depends_on": "eval:doc.allocation_type==\"Lease\"",
+   "fieldname": "lease_schedule",
+   "fieldtype": "Table",
+   "label": "Lease Schedule",
+   "options": "Lease Schedule"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [
+  {
+   "link_doctype": "Payment Entry",
+   "link_fieldname": "custom_unit_allocation"
+  }
+ ],
+ "modified": "2025-04-23 17:12:04.906456",
+ "modified_by": "Administrator",
+ "module": "estates",
+ "name": "Unit Allocation",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

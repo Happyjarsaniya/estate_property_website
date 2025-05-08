@@ -1,0 +1,288 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:property_name",
+ "creation": "2025-02-23 19:38:25.534906",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "property_name",
+  "property_ownership",
+  "owner1",
+  "property_type",
+  "average_carpet_area",
+  "city",
+  "property_area",
+  "property_price",
+  "discount",
+  "grand_total",
+  "section_break_qnnf",
+  "total_num_of_towersector",
+  "address",
+  "agent_name",
+  "image",
+  "descriptions",
+  "property_type_details_section",
+  "common_parking_area",
+  "water_source",
+  "property_status_tab",
+  "project_status",
+  "project_land_area",
+  "column_break_z1rn",
+  "project_start_date",
+  "expected_project_end_date",
+  "tab_break_i419",
+  "amenities",
+  "image_and_document_tab",
+  "image_and_document",
+  "financial_information_tab",
+  "amended_from",
+  "payment_schedule_details"
+ ],
+ "fields": [
+  {
+   "fieldname": "address",
+   "fieldtype": "Link",
+   "label": "Address",
+   "options": "Address",
+   "reqd": 1
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "label": "Image",
+   "reqd": 1
+  },
+  {
+   "fieldname": "descriptions",
+   "fieldtype": "Small Text",
+   "label": "About Property"
+  },
+  {
+   "depends_on": "agent",
+   "fetch_from": "agent.agent_name",
+   "fetch_if_empty": 1,
+   "fieldname": "agent_name",
+   "fieldtype": "Data",
+   "label": "Agent Name"
+  },
+  {
+   "fieldname": "section_break_qnnf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "property_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Property Type",
+   "options": "Property Type",
+   "reqd": 1
+  },
+  {
+   "fieldname": "property_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Property Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "property_price",
+   "fieldtype": "Currency",
+   "label": "Property Price"
+  },
+  {
+   "fieldname": "grand_total",
+   "fieldtype": "Data",
+   "label": "Grand Total"
+  },
+  {
+   "fieldname": "discount",
+   "fieldtype": "Percent",
+   "label": "Discount"
+  },
+  {
+   "fetch_from": "address.city",
+   "fetch_if_empty": 1,
+   "fieldname": "city",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "City",
+   "options": "City"
+  },
+  {
+   "default": "Builder",
+   "fieldname": "property_ownership",
+   "fieldtype": "Data",
+   "label": "Property Ownership",
+   "reqd": 1
+  },
+  {
+   "fieldname": "property_area",
+   "fieldtype": "Float",
+   "label": "Property Area",
+   "reqd": 1
+  },
+  {
+   "fieldname": "project_status",
+   "fieldtype": "Select",
+   "label": "Project Status",
+   "options": "\nUnder Construction\nReady possession",
+   "reqd": 1
+  },
+  {
+   "fieldname": "project_land_area",
+   "fieldtype": "Float",
+   "label": "Project Land Area",
+   "non_negative": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "project_start_date",
+   "fieldtype": "Date",
+   "label": "Project Start date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "expected_project_end_date",
+   "fieldtype": "Date",
+   "label": "Expected Project End Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "average_carpet_area",
+   "fieldtype": "Float",
+   "label": "Average Carpet Area",
+   "non_negative": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "tab_break_i419",
+   "fieldtype": "Tab Break",
+   "label": "Amenity Section"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "property_status_tab",
+   "fieldtype": "Section Break",
+   "label": "Project Status"
+  },
+  {
+   "fieldname": "column_break_z1rn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "image_and_document_tab",
+   "fieldtype": "Tab Break",
+   "label": "Image And Document"
+  },
+  {
+   "fieldname": "image_and_document",
+   "fieldtype": "Table",
+   "label": "Image And Document",
+   "options": "Image And Document",
+   "reqd": 1
+  },
+  {
+   "fieldname": "financial_information_tab",
+   "fieldtype": "Tab Break",
+   "label": "Financial Information"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Property",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fetch_from": "property_ownership.builder_name",
+   "fetch_if_empty": 1,
+   "fieldname": "owner1",
+   "fieldtype": "Link",
+   "label": "Owner",
+   "options": "Owner Details"
+  },
+  {
+   "fieldname": "property_type_details_section",
+   "fieldtype": "Section Break",
+   "label": "Property Type Details"
+  },
+  {
+   "depends_on": "eval:doc.property_type=='Residential'",
+   "fieldname": "water_source",
+   "fieldtype": "Select",
+   "label": "Water Source",
+   "options": "\nBorewell\nMunicipal\nBoth"
+  },
+  {
+   "depends_on": "eval:doc.property_type=='Mixed-use'",
+   "fieldname": "common_parking_area",
+   "fieldtype": "Select",
+   "label": "Common Parking Area",
+   "options": "\nYes\nNo"
+  },
+  {
+   "fieldname": "total_num_of_towersector",
+   "fieldtype": "Int",
+   "label": " Total Num of tower/sector",
+   "reqd": 1
+  },
+  {
+   "fieldname": "payment_schedule_details",
+   "fieldtype": "Table",
+   "label": "Payment Schedule Details",
+   "options": "Payment Schedule Details",
+   "reqd": 1
+  },
+  {
+   "fieldname": "amenities",
+   "fieldtype": "Table",
+   "label": "Amenities",
+   "options": "Property Amenity Detail",
+   "reqd": 1
+  }
+ ],
+ "image_field": "image",
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [
+  {
+   "link_doctype": "Tower Sector Detail",
+   "link_fieldname": "property_name"
+  },
+  {
+   "link_doctype": "Unit Details",
+   "link_fieldname": "unit_type"
+  }
+ ],
+ "modified": "2025-04-21 14:43:06.952365",
+ "modified_by": "Administrator",
+ "module": "estates",
+ "name": "Property",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "property_type"
+}

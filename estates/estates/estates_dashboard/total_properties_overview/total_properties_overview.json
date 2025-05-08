@@ -1,0 +1,21 @@
+{
+ "cards": [],
+ "charts": [
+  {
+   "chart": "Total Properties Overview",
+   "width": "Half"
+  }
+ ],
+ "creation": "2025-03-10 17:15:47.131099",
+ "dashboard_name": "Total Properties Overview",
+ "docstatus": 0,
+ "doctype": "Dashboard",
+ "idx": 0,
+ "is_default": 0,
+ "is_standard": 1,
+ "modified": "2025-03-10 17:27:42.269745",
+ "modified_by": "Administrator",
+ "module": "estates",
+ "name": "Total Properties Overview",
+ "owner": "Administrator"
+}

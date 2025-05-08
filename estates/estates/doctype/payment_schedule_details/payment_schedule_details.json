@@ -1,0 +1,74 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-03-20 11:28:11.148246",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "property_price",
+  "stage_details",
+  "payment",
+  "amount",
+  "gst",
+  "gst_amount",
+  "total_amount",
+  "status"
+ ],
+ "fields": [
+  {
+   "fieldname": "stage_details",
+   "fieldtype": "Select",
+   "label": "Stage Details",
+   "options": "\n1st\n2nd\n3rd"
+  },
+  {
+   "fieldname": "payment",
+   "fieldtype": "Percent",
+   "label": "Payment"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "label": "Amount"
+  },
+  {
+   "fieldname": "gst",
+   "fieldtype": "Percent",
+   "label": "Gst"
+  },
+  {
+   "fieldname": "gst_amount",
+   "fieldtype": "Currency",
+   "label": "Gst Amount"
+  },
+  {
+   "fieldname": "property_price",
+   "fieldtype": "Currency",
+   "hidden": 1,
+   "label": "Property Price"
+  },
+  {
+   "fieldname": "total_amount",
+   "fieldtype": "Currency",
+   "label": "Total Amount"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "UnPaid\nPaid"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-04-08 16:57:27.753670",
+ "modified_by": "Administrator",
+ "module": "estates",
+ "name": "Payment Schedule Details",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

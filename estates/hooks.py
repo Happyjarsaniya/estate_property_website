@@ -1,3 +1,9 @@
+
+from __future__ import unicode_literals
+from . import __version__ as app_version
+from estates.route import routes
+from .jinja import jenvs
+
 app_name = "estates"
 app_title = "estates"
 app_publisher = "happy"
@@ -11,22 +17,27 @@ app_license = "mit"
 # required_apps = []
 
 # Each item in the list will be shown as an app in the apps page
-# add_to_apps_screen = [
-# 	{
-# 		"name": "estates",
-# 		"logo": "/assets/estates/logo.png",
-# 		"title": "estates",
-# 		"route": "/estates",
-# 		"has_permission": "estates.api.permission.has_app_permission"
-# 	}
-# ]
+add_to_apps_screen = [
+	{
+		"name": "estates",
+		"logo": "/assets/estate_App/homeland/images/logo.jpg",
+		"title": "estates",
+		"route": "property/index",
+		# "has_permission": "estates.api.permission.has_app_permission"
+	}
+]
 
 # Includes in <head>
 # ------------------
 
+
+
 # include js, css files in header of desk.html
 # app_include_css = "/assets/estates/css/estates.css"
-# app_include_js = "/assets/estates/js/estates.js"
+app_include_js = [
+    "/assets/frappe/js/frappe.min.js",
+    # "/assets/estates/js/contact_form.js"
+]
 
 # include js, css files in header of web template
 # web_include_css = "/assets/estates/css/estates.css"
@@ -43,7 +54,7 @@ app_license = "mit"
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
+doctype_js = {"Payment Entry" : "public/js/payment_entry.js"}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -63,6 +74,21 @@ app_license = "mit"
 # role_home_page = {
 # 	"Role": "home_page"
 # }
+website_route_rules = routes
+    # {'from_route':'/property/detail/<docname>','to_route':'/property/detail/'}
+
+
+
+
+jinja = {
+    "methods": ["estates.utils.exp"]
+}
+
+
+
+
+# API function allow karna
+
 
 # Generators
 # ----------
@@ -125,36 +151,62 @@ app_license = "mit"
 # 	"Event": "frappe.desk.doctype.event.event.has_permission",
 # }
 
+
 # DocType Class
 # ---------------
 # Override standard doctype classes
 
-# override_doctype_class = {
-# 	"ToDo": "custom_app.overrides.CustomToDo"
-# }
+override_doctype_class = {
+	# "ToDo": "custom_app.overrides.CustomToDo"
+    # "Payment Entry": "estates.overrides.payment_entry.CustomPaymentEntry"
+
+
+}
+
+
+
 
 # Document Events
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
+doc_events = {
 # 	"*": {
 # 		"on_update": "method",
 # 		"on_cancel": "method",
 # 		"on_trash": "method"
-# 	}
-# }
+# 	},
+# estates/hooks.py
+    "Payment Entry": {
+      "on_submit": "estates.overrides.payment_entry.on_submit",
+    #   "validate":"estates.overrides.payment_entry.validate_paid_stage"
+    
+    }
+}
+
+
+api_routes = [
+   
+	{"method":"POST","path": "/api/method/estates.API.agent_api.create_agent" },
+]
 
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
+scheduler_events = {
 # 	"all": [
 # 		"estates.tasks.all"
 # 	],
-# 	"daily": [
-# 		"estates.tasks.daily"
-# 	],
+
+    "daily": [
+    #     "estates.custom_methods.send_payment_reminders",
+    #     "estates.doctype.payment_entry_doctype.payment_entry_doctype.send_payment_reminder",
+	#     "estates.API.rent_invoice.send_rent_reminders",
+          "estates.estates.doctype.unit_allocation.unit_allocation.send_overdue_rent_notifications"
+    ]
+     
+
+
 # 	"hourly": [
 # 		"estates.tasks.hourly"
 # 	],
@@ -164,7 +216,7 @@ app_license = "mit"
 # 	"monthly": [
 # 		"estates.tasks.monthly"
 # 	],
-# }
+}
 
 # Testing
 # -------
@@ -241,4 +293,10 @@ app_license = "mit"
 # default_log_clearing_doctypes = {
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
+
+# website_redirects = [
+#     {"source":"/property/login","target":"/login"},
+#     {"source":"/property/register","target":"/registration-"}
+# ]
+
 
